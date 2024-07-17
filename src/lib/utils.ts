@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
 export const handleErrorApi = ({
   error,
   setError,
-  duration,
+  duration
 }: {
   error: any
   setError?: UseFormSetError<any>
@@ -21,7 +21,7 @@ export const handleErrorApi = ({
     error.payload.errors.forEach((item) => {
       setError(item.field, {
         type: 'server',
-        message: item.message,
+        message: item.message
       })
     })
   } else {
@@ -29,7 +29,7 @@ export const handleErrorApi = ({
       title: 'Lỗi',
       description: error?.payload?.message ?? 'Lỗi không xác định',
       variant: 'destructive',
-      duration: duration ?? 5000,
+      duration: duration ?? 5000
     })
   }
 }

@@ -27,7 +27,7 @@ export class HttpError extends Error {
   constructor({
     status,
     payload,
-    message = 'Lỗi HTTP',
+    message = 'Lỗi HTTP'
   }: {
     status: number
     payload: any
@@ -44,7 +44,7 @@ export class EntityError extends HttpError {
   payload: EntityErrorPayload
   constructor({
     status,
-    payload,
+    payload
   }: {
     status: typeof ENTITY_ERROR_STATUS
     payload: EntityErrorPayload
@@ -74,7 +74,7 @@ const request = async <Response>(
     body instanceof FormData
       ? {}
       : {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         }
   if (isClient) {
     const accessToken = localStorage.getItem('accessToken')
@@ -95,15 +95,15 @@ const request = async <Response>(
     ...options,
     headers: {
       ...baseHeaders,
-      ...options?.headers,
+      ...options?.headers
     } as any,
     body,
-    method,
+    method
   })
   const payload: Response = await res.json()
   const data = {
     status: res.status,
-    payload,
+    payload
   }
   // Interceptor là nời chúng ta xử lý request và response trước khi trả về cho phía component
   if (!res.ok) {
@@ -121,8 +121,8 @@ const request = async <Response>(
             method: 'POST',
             body: null, // Logout mình sẽ cho phép luôn luôn thành công
             headers: {
-              ...baseHeaders,
-            } as any,
+              ...baseHeaders
+            } as any
           })
           try {
             await clientLogoutRequest
@@ -189,7 +189,7 @@ const http = {
     options?: Omit<CustomOptions, 'body'> | undefined
   ) {
     return request<Response>('DELETE', url, { ...options })
-  },
+  }
 }
 
 export default http
