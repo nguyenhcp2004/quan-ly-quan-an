@@ -3,5 +3,5 @@ import { UploadImageResType } from '@/schemaValidations/media.schema'
 
 export const mediaApiRequests = {
   upload: (formdata: FormData) =>
-    http.put<UploadImageResType>('/media/upload', formdata)
+    http.post<UploadImageResType>('/media/upload', formdata)
 }
