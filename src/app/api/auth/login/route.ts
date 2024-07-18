@@ -17,14 +17,14 @@ export async function POST(request: Request) {
       httpOnly: true,
       sameSite: 'lax',
       secure: true,
-      expires: decodedAccessToken.exp * 1000,
+      expires: decodedAccessToken.exp * 1000
     })
-    cookieStore.set('refreshToken', accessToken, {
+    cookieStore.set('refreshToken', refreshToken, {
       path: '/',
       httpOnly: true,
       sameSite: 'lax',
       secure: true,
-      expires: decodedRefreshToken.exp * 1000,
+      expires: decodedRefreshToken.exp * 1000
     })
 
     return Response.json(payload)
