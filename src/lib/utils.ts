@@ -80,7 +80,8 @@ export const checkAndRefreshToken = async (param?: {
   }
   // Thời điểm hết hạn của token là tính theo epoch time (s)
   // Còn khi các bạn dùng cú pháp new Date().getTime() thì nó sẽ trả về epoch time (ms)
-  const now = Math.round(new Date().getTime() / 1000)
+  // Khi set cookie với expires thì sẽ bị lệch khoảng từ 0 - 1000ms nên để an toàn thì ta trừ hẳn 1s
+  const now = new Date().getTime() / 1000 - 1 // second
   // trường hợp refresh token hết hạn thì không xử lý nữa
   if (decodedRefreshToken.exp <= now) {
     removeTokensFromLocalStorage()
