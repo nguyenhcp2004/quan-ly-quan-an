@@ -1,22 +1,40 @@
 import http from '@/lib/http'
 import {
+  AccountListResType,
   AccountResType,
   ChangePasswordBodyType,
+  CreateEmployeeAccountBodyType,
+  UpdateEmployeeAccountBodyType,
   UpdateMeBodyType
 } from '@/schemaValidations/account.schema'
 
+const prefix = '/accounts'
 const accountApiRequests = {
-  me: () => {
-    return http.get<AccountResType>('/accounts/me')
-  },
+  me: () => http.get<AccountResType>(`${prefix}/me`),
 
-  updateMe: (body: UpdateMeBodyType) => {
-    return http.put<AccountResType>('/accounts/me', body)
-  },
+  sMe: (accessToken: string) =>
+    http.get<AccountResType>(`${prefix}/me`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    }),
 
-  changePassword: (body: ChangePasswordBodyType) => {
-    return http.put<AccountResType>('/accounts/change-password', body)
-  }
+  updateMe: (body: UpdateMeBodyType) =>
+    http.put<AccountResType>(`${prefix}/me`, body),
+  changePassword: (body: ChangePasswordBodyType) =>
+    http.put<AccountResType>(`${prefix}/change-password`, body),
+  list: () => http.get<AccountListResType>(`${prefix}`),
+  addEmployee: (body: CreateEmployeeAccountBodyType) =>
+    http.post<AccountResType>(prefix, body),
+
+  getEmployee: (id: number) =>
+    http.get<AccountResType>(`${prefix}/detail/${id}`),
+
+  updateEmployee: (id: number, body: UpdateEmployeeAccountBodyType) =>
+    http.put<AccountResType>(`${prefix}/detail/${id}`, body),
+
+  deleteEmployee: (id: number) =>
+    http.delete<AccountResType>(`${prefix}/detail/${id}`)
 }
 
 export default accountApiRequests
