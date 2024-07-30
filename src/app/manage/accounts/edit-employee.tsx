@@ -75,6 +75,11 @@ export default function EditEmployee({
     }
   }, [data, form])
 
+  const reset = () => {
+    setFile(null)
+    setId(undefined)
+  }
+
   const onSubmit = async (values: UpdateEmployeeAccountBodyType) => {
     if (updateAccountMutation.isPending) return
     try {
@@ -99,7 +104,7 @@ export default function EditEmployee({
         description: result.payload.message
       })
       onSubmitSuccess && onSubmitSuccess()
-      setId(undefined)
+      reset()
     } catch (error) {
       handleErrorApi({ error, setError: form.setError })
     }
@@ -110,7 +115,7 @@ export default function EditEmployee({
       open={Boolean(id)}
       onOpenChange={(value) => {
         if (!value) {
-          setId(undefined)
+          reset()
         }
       }}
     >
