@@ -2,6 +2,7 @@
 
 import { useAppContext } from '@/components/app-provider'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const menuItems = [
   {
