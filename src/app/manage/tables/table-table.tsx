@@ -72,7 +72,11 @@ export const columns: ColumnDef<TableItem>[] = [
     header: 'Số bàn',
     cell: ({ row }) => (
       <div className='capitalize'>{row.getValue('number')}</div>
-    )
+    ),
+    filterFn: (rows, columnId, filterValue) => {
+      if (!filterValue) return true
+      return String(filterValue) === String(rows.getValue('number'))
+    }
   },
   {
     accessorKey: 'capacity',
