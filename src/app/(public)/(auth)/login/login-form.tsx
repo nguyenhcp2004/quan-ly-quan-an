@@ -21,7 +21,7 @@ import { useEffect } from 'react'
 import { useAppContext } from '@/components/app-provider'
 
 export default function LoginForm() {
-  const { setIsAuth } = useAppContext()
+  const { setRole } = useAppContext()
   const loginMutation = useLoginMutation()
   const router = useRouter()
   const searchParam = useSearchParams()
@@ -36,9 +36,9 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (clearTokens) {
-      setIsAuth(false)
+      setRole()
     }
-  }, [clearTokens, setIsAuth])
+  }, [clearTokens, setRole])
 
   const onSubmit = async (data: LoginBodyType) => {
     if (loginMutation.isPending) return
@@ -47,7 +47,7 @@ export default function LoginForm() {
       toast({
         description: result.payload.message
       })
-      setIsAuth(true)
+      setRole(result.payload.data.account.role)
       router.push('/manage/dashboard')
     } catch (error: any) {
       handleErrorApi({ error, setError: form.setError })
