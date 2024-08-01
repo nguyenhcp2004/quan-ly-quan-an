@@ -57,6 +57,7 @@ import AddDish from '@/app/manage/dishes/add-dish'
 import DOMPurify from 'dompurify'
 import { useDeleteDishMutation, useDishListQuery } from '@/queries/useDish'
 import { toast } from '@/components/ui/use-toast'
+import revalidateApiRequest from '@/apiRequests/revalidate'
 
 type DishItem = DishListResType['data'][0]
 
@@ -170,6 +171,7 @@ function AlertDialogDeleteDish({
         toast({
           description: result?.payload.message
         })
+        revalidateApiRequest('dishes')
       } catch (error) {
         handleErrorApi({
           error
