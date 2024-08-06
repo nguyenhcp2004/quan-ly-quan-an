@@ -1,15 +1,37 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle
+} from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { UpdateOrderBody, UpdateOrderBodyType } from '@/schemaValidations/order.schema'
+import {
+  UpdateOrderBody,
+  UpdateOrderBodyType
+} from '@/schemaValidations/order.schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form'
 import { getVietnameseOrderStatus } from '@/lib/utils'
 import { OrderStatus, OrderStatusValues } from '@/constants/type'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select'
 import { DishesDialog } from '@/app/manage/orders/dishes-dialog'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { useState } from 'react'
@@ -63,7 +85,9 @@ export default function EditOrder({
   setId: (value: number | undefined) => void
   onSubmitSuccess?: () => void
 }) {
-  const [selectedDish, setSelectedDish] = useState<DishListResType['data'][0]>(fakeOrderDetail.dishSnapshot as any)
+  const [selectedDish, setSelectedDish] = useState<DishListResType['data'][0]>(
+    fakeOrderDetail.dishSnapshot as any
+  )
   const orderDetail = fakeOrderDetail
   const form = useForm<UpdateOrderBodyType>({
     resolver: zodResolver(UpdateOrderBody),
@@ -110,7 +134,9 @@ export default function EditOrder({
                     <div className='flex items-center col-span-2 space-x-4'>
                       <Avatar className='aspect-square w-[50px] h-[50px] rounded-md object-cover'>
                         <AvatarImage src={selectedDish?.image} />
-                        <AvatarFallback className='rounded-none'>{selectedDish?.name}</AvatarFallback>
+                        <AvatarFallback className='rounded-none'>
+                          {selectedDish?.name}
+                        </AvatarFallback>
                       </Avatar>
                       <div>{selectedDish?.name}</div>
                     </div>
@@ -162,7 +188,10 @@ export default function EditOrder({
                   <FormItem>
                     <div className='grid grid-cols-4 items-center justify-items-start gap-4'>
                       <FormLabel>Trạng thái</FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl className='col-span-3'>
                           <SelectTrigger className='w-[200px]'>
                             <SelectValue placeholder='Trạng thái' />
