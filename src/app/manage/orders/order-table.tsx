@@ -200,8 +200,17 @@ export default function OrderTable() {
       refetch()
     }
 
+    function onPayment(data: PayGuestOrdersResType['data']) {
+      const { guest } = data[0]
+      toast({
+        description: `${guest?.name} tại bàn ${guest?.tableNumber} vừa thanh toán thành công ${data.length} đơn`
+      })
+      refetch()
+    }
+
     socket.on('update-order', onUpdateOrder)
     socket.on('new-order', onNewOrder)
+    socket.on('payment', onPayment)
     socket.on('connect', onConnect)
     socket.on('disconnect', onDisconnect)
 
@@ -210,6 +219,7 @@ export default function OrderTable() {
       socket.off('disconnect', onDisconnect)
       socket.off('update-order', onUpdateOrder)
       socket.off('new-order', onNewOrder)
+      socket.off('payment', onPayment)
     }
   }, [fromDate, toDate, refetchOrderList])
 
