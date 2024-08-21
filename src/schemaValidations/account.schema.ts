@@ -1,11 +1,11 @@
-import { RoleValues } from '@/constants/type'
+import { Role } from '@/constants/type'
 import z from 'zod'
 
 export const AccountSchema = z.object({
   id: z.number(),
   name: z.string(),
   email: z.string(),
-  role: z.string(),
+  role: z.enum([Role.Owner, Role.Employee]),
   avatar: z.string().nullable()
 })
 
@@ -46,7 +46,9 @@ export const CreateEmployeeAccountBody = z
     }
   })
 
-export type CreateEmployeeAccountBodyType = z.TypeOf<typeof CreateEmployeeAccountBody>
+export type CreateEmployeeAccountBodyType = z.TypeOf<
+  typeof CreateEmployeeAccountBody
+>
 
 export const UpdateEmployeeAccountBody = z
   .object({
@@ -55,7 +57,8 @@ export const UpdateEmployeeAccountBody = z
     avatar: z.string().url().optional(),
     changePassword: z.boolean().optional(),
     password: z.string().min(6).max(100).optional(),
-    confirmPassword: z.string().min(6).max(100).optional()
+    confirmPassword: z.string().min(6).max(100).optional(),
+    role: z.enum([Role.Owner, Role.Employee]).optional().default(Role.Employee)
   })
   .strict()
   .superRefine(({ confirmPassword, password, changePassword }, ctx) => {
@@ -76,7 +79,9 @@ export const UpdateEmployeeAccountBody = z
     }
   })
 
-export type UpdateEmployeeAccountBodyType = z.TypeOf<typeof UpdateEmployeeAccountBody>
+export type UpdateEmployeeAccountBodyType = z.TypeOf<
+  typeof UpdateEmployeeAccountBody
+>
 
 export const UpdateMeBody = z
   .object({
@@ -132,7 +137,9 @@ export const GetGuestListQueryParams = z.object({
   toDate: z.coerce.date().optional()
 })
 
-export type GetGuestListQueryParamsType = z.TypeOf<typeof GetGuestListQueryParams>
+export type GetGuestListQueryParamsType = z.TypeOf<
+  typeof GetGuestListQueryParams
+>
 
 export const CreateGuestBody = z
   .object({
@@ -148,7 +155,7 @@ export const CreateGuestRes = z.object({
   data: z.object({
     id: z.number(),
     name: z.string(),
-    role: z.enum(RoleValues),
+    role: z.enum([Role.Guest]),
     tableNumber: z.number().nullable(),
     createdAt: z.date(),
     updatedAt: z.date()
