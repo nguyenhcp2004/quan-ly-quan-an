@@ -1,3 +1,4 @@
+import { Role } from '@/constants/type'
 import {
   Home,
   LineChart,
@@ -11,27 +12,32 @@ const menuItems = [
   {
     title: 'Dashboard',
     Icon: Home,
-    href: '/manage/dashboard'
+    href: '/manage/dashboard',
+    roles: [Role.Owner, Role.Employee]
   },
   {
     title: 'Đơn hàng',
     Icon: ShoppingCart,
-    href: '/manage/orders'
+    href: '/manage/orders',
+    roles: [Role.Owner, Role.Employee]
   },
   {
     title: 'Bàn ăn',
     Icon: Table,
-    href: '/manage/tables'
+    href: '/manage/tables',
+    roles: [Role.Owner, Role.Employee]
   },
   {
     title: 'Món ăn',
     Icon: Salad,
-    href: '/manage/dishes'
+    href: '/manage/dishes',
+    roles: [Role.Owner, Role.Employee]
   },
   {
     title: 'Nhân viên',
     Icon: Users2,
-    href: '/manage/accounts'
+    href: '/manage/accounts',
+    roles: [Role.Owner]
   }
 ]
 
