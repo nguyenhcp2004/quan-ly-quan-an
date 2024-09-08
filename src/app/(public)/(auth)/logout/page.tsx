@@ -11,7 +11,7 @@ import { Suspense, useEffect, useRef } from 'react'
 
 function Logout() {
   const { mutateAsync } = useLogoutMutation()
-  const { setRole } = useAppContext()
+  const { setRole, disconnectSocket } = useAppContext()
   const router = useRouter()
   const ref = useRef<any>(null)
   const searchParams = useSearchParams()
@@ -31,12 +31,20 @@ function Logout() {
           ref.current = null
         }, 1000)
         setRole()
+        disconnectSocket()
         router.push('/login')
       })
     } else {
       router.push('/')
     }
-  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl, setRole])
+  }, [
+    mutateAsync,
+    router,
+    refreshTokenFromUrl,
+    accessTokenFromUrl,
+    setRole,
+    disconnectSocket
+  ])
   return <div>Logout ....</div>
 }
 export default function LogoutPage() {

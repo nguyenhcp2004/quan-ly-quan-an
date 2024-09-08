@@ -1,4 +1,4 @@
-import socket from '@/lib/socket'
+import { useAppContext } from '@/components/app-provider'
 import { checkAndRefreshToken } from '@/lib/utils'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
@@ -7,6 +7,7 @@ const UNAUTHENTICATED_PATH = ['/login', '/register', '/refresh-token']
 export default function RefreshToken() {
   const pathName = usePathname()
   const router = useRouter()
+  const { disconnectSocket, socket } = useAppContext()
   useEffect(() => {
     if (UNAUTHENTICATED_PATH.includes(pathName)) return
     let interval: any = null
@@ -15,6 +16,7 @@ export default function RefreshToken() {
       checkAndRefreshToken({
         onError: () => {
           clearInterval(interval)
+          disconnectSocket()
           router.push('/login')
         },
         force
@@ -26,12 +28,12 @@ export default function RefreshToken() {
     const TIMEOUT = 1000
     interval = setInterval(onRefreshToken, TIMEOUT)
 
-    if (socket.connected) {
+    if (socket?.connected) {
       onConnect()
     }
 
     function onConnect() {
-      console.log(socket.id)
+      console.log(socket?.id)
     }
 
     function onDisconnect() {
@@ -42,17 +44,17 @@ export default function RefreshToken() {
       onRefreshToken(true)
     }
 
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisconnect)
-    socket.on('refresh-token', onRefreshTokenSocket)
+    socket?.on('connect', onConnect)
+    socket?.on('disconnect', onDisconnect)
+    socket?.on('refresh-token', onRefreshTokenSocket)
 
     return () => {
-      socket.off('connect', onConnect)
-      socket.off('disconnect', onDisconnect)
-      socket.off('refresh-token', onRefreshTokenSocket)
+      socket?.off('connect', onConnect)
+      socket?.off('disconnect', onDisconnect)
+      socket?.off('refresh-token', onRefreshTokenSocket)
       clearInterval(interval)
     }
-  }, [pathName, router])
+  }, [pathName, router, socket, disconnectSocket])
 
   return null
 }
