@@ -8,25 +8,26 @@ import AppProvider from '@/components/app-provider'
 
 const fontSans = FontSans({
   subsets: ['latin'],
-  variable: '--font-sans',
+  variable: '--font-sans'
 })
 export const metadata: Metadata = {
   title: 'Big Boy Restaurant',
-  description: 'The best restaurant in the world',
+  description: 'The best restaurant in the world'
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning={true}>
       <body
         className={cn(
           'min-h-screen bg-background font-sans antialiased',
           fontSans.variable
         )}
+        suppressHydrationWarning={true}
       >
         <AppProvider>
           <ThemeProvider
