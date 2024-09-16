@@ -34,9 +34,15 @@ export default function OAuthPage() {
       }
       count.current++
     } else {
-      toast({
-        description: message || 'Có lỗi xảy ra'
-      })
+      if (count.current === 0) {
+        setTimeout(() => {
+          toast({
+            description: message || 'Có lỗi xảy ra'
+          })
+        })
+        router.push('/login')
+      }
+      count.current++
     }
   }, [
     accessToken,
