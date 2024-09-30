@@ -18,7 +18,7 @@ import { toast } from '@/components/ui/use-toast'
 import { generateSocketInstance, handleErrorApi } from '@/lib/utils'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
-import { useAppContext } from '@/components/app-provider'
+import { useAppStore } from '@/components/app-provider'
 import envConfig from '@/config'
 import Link from 'next/link'
 
@@ -41,7 +41,8 @@ const getOauthGoogleUrl = () => {
 const googleOauthUrl = getOauthGoogleUrl()
 
 export default function LoginForm() {
-  const { setRole, setSocket } = useAppContext()
+  const setRole = useAppStore((state) => state.setRole)
+  const setSocket = useAppStore((state) => state.setSocket)
   const loginMutation = useLoginMutation()
   const router = useRouter()
   const searchParam = useSearchParams()
