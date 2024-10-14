@@ -36,17 +36,19 @@ export default async function RootLayout({
         )}
         suppressHydrationWarning={true}
       >
-        <AppProvider>
-          <ThemeProvider
-            attribute='class'
-            defaultTheme='system'
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </AppProvider>
+        <NextIntlClientProvider messages={messages}>
+          <AppProvider>
+            <ThemeProvider
+              attribute='class'
+              defaultTheme='system'
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </AppProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )

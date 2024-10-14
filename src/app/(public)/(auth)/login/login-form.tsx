@@ -21,6 +21,7 @@ import { useEffect } from 'react'
 import { useAppStore } from '@/components/app-provider'
 import envConfig from '@/config'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 
 const getOauthGoogleUrl = () => {
   const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -41,6 +42,7 @@ const getOauthGoogleUrl = () => {
 const googleOauthUrl = getOauthGoogleUrl()
 
 export default function LoginForm() {
+  const t = useTranslations('Login')
   const setRole = useAppStore((state) => state.setRole)
   const setSocket = useAppStore((state) => state.setSocket)
   const loginMutation = useLoginMutation()
@@ -79,7 +81,7 @@ export default function LoginForm() {
   return (
     <Card className='mx-auto max-w-sm'>
       <CardHeader>
-        <CardTitle className='text-2xl'>Đăng nhập</CardTitle>
+        <CardTitle className='text-2xl'>{t('title')}</CardTitle>
         <CardDescription>
           Nhập email và mật khẩu của bạn để đăng nhập vào hệ thống
         </CardDescription>

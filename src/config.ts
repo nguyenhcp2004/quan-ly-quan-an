@@ -25,3 +25,7 @@ const envConfig = configProject.data
 export default envConfig
 
 //Nếu có những env nhạy cảm bên server chỉ sử dụng có thể chia thêm 1 envServerConfig
+
+export type Locale = (typeof locales)[number]
+export const locales = ['en', 'vi'] as const
+export const defaultLocale: Locale = 'vi'
