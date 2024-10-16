@@ -27,27 +27,28 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const accessToken = request.cookies.get('accessToken')?.value
   const refreshToken = request.cookies.get('refreshToken')?.value
+  const locale = request.cookies.get('NEXT_LOCALE')?.value ?? defaultLocale
 
   //1. Chưa đăng nhập thì không cho vào private path
   if (privatePaths.some((path) => pathname.startsWith(path)) && !refreshToken) {
-    const url = new URL('/login', request.url)
+    const url = new URL(`/${locale}/login`, request.url)
     url.searchParams.set('clearTokens', 'true')
-    // return NextResponse.redirect(url)
-    response.headers.set('x-middleware-rewrite', url.toString())
-    return response
+    return NextResponse.redirect(url)
+    // response.headers.set('x-middleware-rewrite', url.toString())
+    // return response
   }
 
   //2 Trường hợp đã đăng nhập
   if (refreshToken) {
     //2.1 Nếu cố tình vào trang login thì sẽ redirect về trang chủ
     if (unAuthPaths.some((path) => pathname.startsWith(path))) {
-      // return NextResponse.redirect(new URL('/', request.url))
-      response.headers.set(
-        'x-middleware-rewrite',
-        new URL('/', request.url).toString()
-      )
+      return NextResponse.redirect(new URL(`/${locale}`, request.url))
+      // response.headers.set(
+      //   'x-middleware-rewrite',
+      //   new URL('/', request.url).toString()
+      // )
 
-      return response
+      // return response
     }
 
     //2.2 Nhưng accessToken lại hết hạn
@@ -55,12 +56,12 @@ export function middleware(request: NextRequest) {
       privatePaths.some((path) => pathname.startsWith(path)) &&
       !accessToken
     ) {
-      const url = new URL('/refresh-token', request.url)
+      const url = new URL(`/${locale}/refresh-token`, request.url)
       url.searchParams.set('refreshToken', refreshToken)
       url.searchParams.set('redirect', pathname)
-      // return NextResponse.redirect(url)
-      response.headers.set('x-middleware-rewrite', url.toString())
-      return response
+      return NextResponse.redirect(url)
+      // response.headers.set('x-middleware-rewrite', url.toString())
+      // return response
     }
 
     //2.3 Vào không đúng role, redirect về trang chủ
@@ -81,14 +82,16 @@ export function middleware(request: NextRequest) {
       isNotGuestGoToGuestPaths ||
       isNotOwnerGoToOwnerPaths
     ) {
-      // return NextResponse.redirect(new URL('/', request.url))
-      response.headers.set(
-        'x-middleware-rewrite',
-        new URL('/', request.url).toString()
-      )
+      return NextResponse.redirect(new URL(`/${locale}`, request.url))
+      // response.headers.set(
+      //   'x-middleware-rewrite',
+      //   new URL('/', request.url).toString()
+      // )
 
-      return response
+      // return response
     }
+
+    return response
   }
 
   return response
