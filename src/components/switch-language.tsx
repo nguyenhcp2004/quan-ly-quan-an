@@ -15,7 +15,16 @@ import {
   useRouter,
   useSearchParams
 } from 'next/navigation'
-export function SwitchLanguage() {
+import { Suspense } from 'react'
+
+export default function SwitchLanguage() {
+  return (
+    <Suspense>
+      <SwitchLanguageMain />
+    </Suspense>
+  )
+}
+export function SwitchLanguageMain() {
   const t = useTranslations('SwitchLanguage')
   const locale = useLocale()
   const pathName = usePathname()
