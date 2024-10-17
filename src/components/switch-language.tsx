@@ -10,7 +10,6 @@ import {
 import { Locale, locales } from '@/config'
 import { usePathname, useRouter } from '@/i18n/routing'
 import { useLocale, useTranslations } from 'next-intl'
-import { useParams, useSearchParams } from 'next/navigation'
 import { Suspense } from 'react'
 
 export default function SwitchLanguage() {
