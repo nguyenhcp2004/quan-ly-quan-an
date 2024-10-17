@@ -1,6 +1,6 @@
 import { useAppStore } from '@/components/app-provider'
+import { usePathname, useRouter } from '@/i18n/routing'
 import { checkAndRefreshToken } from '@/lib/utils'
-import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
 const UNAUTHENTICATED_PATH = ['/login', '/register', '/refresh-token']

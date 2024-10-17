@@ -13,12 +13,12 @@ import {
   AlertDialogTrigger
 } from '@/components/ui/alert-dialog'
 import { Role } from '@/constants/type'
+import { Link } from '@/i18n/routing'
 import { cn, handleErrorApi } from '@/lib/utils'
 import { useLogoutMutation } from '@/queries/useAuth'
 import { useGuestLogoutMutation } from '@/queries/useGuest'
 import { RoleType } from '@/types/jwt.types'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
 
 const menuItems: {
   title: string
@@ -28,7 +28,7 @@ const menuItems: {
 }[] = [
   {
     title: 'Trang chủ',
-    href: '/menu'
+    href: '/'
   },
   {
     title: 'Menu',

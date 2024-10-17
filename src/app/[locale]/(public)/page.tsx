@@ -2,7 +2,7 @@ import dishApiRequests from '@/apiRequests/dish'
 import { formatCurrency } from '@/lib/utils'
 import { DishListResType } from '@/schemaValidations/dish.schema'
 import Image from 'next/image'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { getTranslations } from 'next-intl/server'
 
 export default async function Home() {

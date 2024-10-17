@@ -8,7 +8,7 @@ import { GuestCreateOrdersBodyType } from '@/schemaValidations/guest.schema'
 import { cn, formatCurrency, handleErrorApi } from '@/lib/utils'
 import { DishStatus } from '@/constants/type'
 import { useGuestOrderMutation } from '@/queries/useGuest'
-import { useRouter } from 'next/navigation'
+import { useRouter } from '@/i18n/routing'
 import Quantity from '@/app/[locale]/guest/menu/quantity'
 
 export default function MenuOrder() {
