@@ -45,6 +45,7 @@ const googleOauthUrl = getOauthGoogleUrl()
 
 export default function LoginForm() {
   const t = useTranslations('Login')
+  const errorMessageT = useTranslations('ErrorMessage')
   const { searchParams, setSearchParams } = useSearchParamsLoader()
   const setRole = useAppStore((state) => state.setRole)
   const setSocket = useAppStore((state) => state.setSocket)
@@ -85,9 +86,8 @@ export default function LoginForm() {
       <SearchParamsLoader onParamsReceived={setSearchParams} />
       <CardHeader>
         <CardTitle className='text-2xl'>{t('title')}</CardTitle>
-        <CardDescription>
-          Nhập email và mật khẩu của bạn để đăng nhập vào hệ thống
-        </CardDescription>
+
+        <CardDescription>{t('cardDescription')}</CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
@@ -121,7 +121,7 @@ export default function LoginForm() {
               <FormField
                 control={form.control}
                 name='password'
-                render={({ field }) => (
+                render={({ field, formState: { errors } }) => (
                   <FormItem>
                     <div className='grid gap-2'>
                       <div className='flex items-center'>
@@ -133,17 +133,20 @@ export default function LoginForm() {
                         required
                         {...field}
                       />
-                      <FormMessage />
+                      <FormMessage>
+                        {Boolean(errors.password?.message) &&
+                          errorMessageT(errors.password?.message as any)}
+                      </FormMessage>
                     </div>
                   </FormItem>
                 )}
               />
               <Button type='submit' className='w-full'>
-                Đăng nhập
+                {t('buttonLogin')}
               </Button>
               <Link href={googleOauthUrl}>
                 <Button variant='outline' className='w-full' type='button'>
-                  Đăng nhập bằng Google
+                  {t('loginWithGoogle')}
                 </Button>
               </Link>
             </div>

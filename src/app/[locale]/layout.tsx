@@ -19,20 +19,17 @@ const fontSans = FontSans({
   variable: '--font-sans'
 })
 
-// export const metadata: Metadata = {
-//   title: 'Big Boy Restaurant',
-//   description: 'The best restaurant in the world'
-// }
-
 export async function generateMetadata({
   params: { locale }
 }: {
   params: { locale: Locale }
 }) {
-  const t = await getTranslations({ locale, namespace: 'HomePage' })
+  const t = await getTranslations({ locale, namespace: 'Brand' })
   return {
-    title: t('title'),
-    description: 'The best restaurant in the world'
+    title: {
+      template: `%s | ${t('title')}`,
+      default: t('defaultTitle')
+    }
   }
 }
 

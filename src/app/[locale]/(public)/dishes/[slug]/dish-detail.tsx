@@ -27,6 +27,7 @@ export default function DishDetail({
         quality={100}
         alt={dish.name}
         className='object-cover w-full h-full max-w-[1080px] max-h-[1080px] rounded-md'
+        title={dish.name}
       />
       <p>{dish.description}</p>
     </div>
