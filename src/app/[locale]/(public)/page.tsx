@@ -1,5 +1,9 @@
 import dishApiRequests from '@/apiRequests/dish'
-import { formatCurrency, generateSlugUrl } from '@/lib/utils'
+import {
+  formatCurrency,
+  generateSlugUrl,
+  htmlToTextForDescription
+} from '@/lib/utils'
 import { DishListResType } from '@/schemaValidations/dish.schema'
 import Image from 'next/image'
 import { Link } from '@/i18n/routing'
@@ -14,7 +18,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'HomePage' })
   return {
     title: t('title'),
-    description: t('description')
+    description: htmlToTextForDescription(t('description'))
   }
 }
 
