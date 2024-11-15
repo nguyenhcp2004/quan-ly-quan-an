@@ -6,14 +6,13 @@ import { twMerge } from 'tailwind-merge'
 import { jwtDecode } from 'jwt-decode'
 import authApiRequest from '@/apiRequests/auth'
 import { DishStatus, OrderStatus, Role, TableStatus } from '@/constants/type'
-import envConfig from '@/config'
+import envConfig, { defaultLocale } from '@/config'
 import { TokenPayload } from '@/types/jwt.types'
 import guestApiRequest from '@/apiRequests/guest'
 import { BookX, CookingPot, HandCoins, Loader, Truck } from 'lucide-react'
 import { format } from 'date-fns'
 import { io } from 'socket.io-client'
 import slugify from 'slugify'
-import { convert } from 'html-to-text'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -175,7 +174,11 @@ export const getTableLink = ({
   tableNumber: number
 }) => {
   return (
-    envConfig.NEXT_PUBLIC_URL + '/tables/' + tableNumber + '?token=' + token
+    envConfig.NEXT_PUBLIC_URL +
+    `/${defaultLocale}/tables/` +
+    tableNumber +
+    '?token=' +
+    token
   )
 }
 
