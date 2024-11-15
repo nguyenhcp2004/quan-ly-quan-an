@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
@@ -15,6 +14,7 @@ import { routing } from '@/i18n/routing'
 import { Locale } from '@/config'
 import NextTopLoader from 'nextjs-toploader'
 import Footer from '@/components/footer'
+import { baseOpenGraph } from '@/shared-metadata'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -31,6 +31,9 @@ export async function generateMetadata({
     title: {
       template: `%s | ${t('title')}`,
       default: t('defaultTitle')
+    },
+    openGraph: {
+      ...baseOpenGraph
     }
   }
 }

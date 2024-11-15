@@ -1,5 +1,5 @@
 import LoginForm from '@/app/[locale]/(public)/(auth)/login/login-form'
-import { Locale } from '@/config'
+import envConfig, { Locale } from '@/config'
 import { getTranslations, unstable_setRequestLocale } from 'next-intl/server'
 
 export async function generateMetadata({
@@ -8,9 +8,13 @@ export async function generateMetadata({
   params: { locale: Locale }
 }) {
   const t = await getTranslations({ locale, namespace: 'Login' })
+  const url = envConfig.NEXT_PUBLIC_URL + `/${locale}/login`
   return {
     title: t('title'),
-    description: t('description')
+    description: t('description'),
+    alternates: {
+      canonical: url
+    }
   }
 }
 export default function Login({
