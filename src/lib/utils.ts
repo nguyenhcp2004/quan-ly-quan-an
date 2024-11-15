@@ -242,11 +242,3 @@ export const generateSlugUrl = ({ name, id }: { name: string; id: number }) => {
 export const getIdFromSlugUrl = (slug: string) => {
   return Number(slug.split('-i.')[1])
 }
-
-export const htmlToTextForDescription = (html: string) => {
-  return convert(html, {
-    limits: {
-      maxInputLength: 140
-    }
-  })
-}
