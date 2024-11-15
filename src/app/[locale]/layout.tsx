@@ -15,6 +15,7 @@ import { Locale } from '@/config'
 import NextTopLoader from 'nextjs-toploader'
 import Footer from '@/components/footer'
 import { baseOpenGraph } from '@/shared-metadata'
+import GoogleTag from '@/components/google-tag'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -75,6 +76,7 @@ export default async function RootLayout({
             </ThemeProvider>
           </AppProvider>
         </NextIntlClientProvider>
+        <GoogleTag />
       </body>
     </html>
   )
