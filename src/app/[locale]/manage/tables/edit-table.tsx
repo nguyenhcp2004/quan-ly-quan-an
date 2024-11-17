@@ -167,7 +167,6 @@ export default function EditTable({
                       <div className='col-span-3 w-full space-y-2'>
                         <Select
                           onValueChange={field.onChange}
-                          defaultValue={field.value}
                           value={field.value}
                         >
                           <FormControl>
