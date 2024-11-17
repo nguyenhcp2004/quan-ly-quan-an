@@ -11,6 +11,7 @@ const guestPaths = ['/vi/guest', '/en/guest']
 const onlyOwnerPaths = ['/vi/manage/accounts', '/en/manage/accounts']
 const privatePaths = [...managePaths, ...guestPaths]
 const unAuthPaths = ['/vi/login', '/en/login']
+const loginPaths = ['/vi/login', '/en/login']
 
 const decodeToken = (token: string) => {
   return jwt.decode(token) as TokenPayload
@@ -24,7 +25,7 @@ export function middleware(request: NextRequest) {
   })
 
   const response = handleI18nRouting(request)
-  const { pathname } = request.nextUrl
+  const { pathname, searchParams } = request.nextUrl
   const accessToken = request.cookies.get('accessToken')?.value
   const refreshToken = request.cookies.get('refreshToken')?.value
   const locale = request.cookies.get('NEXT_LOCALE')?.value ?? defaultLocale
@@ -42,6 +43,12 @@ export function middleware(request: NextRequest) {
   if (refreshToken) {
     //2.1 Nếu cố tình vào trang login thì sẽ redirect về trang chủ
     if (unAuthPaths.some((path) => pathname.startsWith(path))) {
+      if (
+        loginPaths.some((path) => pathname.startsWith(path)) &&
+        searchParams.get('accessToken')
+      ) {
+        return response
+      }
       return NextResponse.redirect(new URL(`/${locale}`, request.url))
       // response.headers.set(
       //   'x-middleware-rewrite',
