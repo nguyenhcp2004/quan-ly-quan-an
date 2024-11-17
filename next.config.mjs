@@ -12,7 +12,7 @@ const nextConfig = {
         pathname: '/**'
       },
       {
-        hostname: 'api-bigboy.duthanhduoc.com',
+        hostname: 'sub1.api-nguyenhuynh.site',
         pathname: '/**'
       },
       {
