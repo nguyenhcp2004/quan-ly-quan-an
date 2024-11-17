@@ -1,4 +1,5 @@
 import { Role } from '@/constants/type'
+import { LoginRes } from '@/schemaValidations/auth.schema'
 import z from 'zod'
 
 export const AccountSchema = z.object({
@@ -46,9 +47,7 @@ export const CreateEmployeeAccountBody = z
     }
   })
 
-export type CreateEmployeeAccountBodyType = z.TypeOf<
-  typeof CreateEmployeeAccountBody
->
+export type CreateEmployeeAccountBodyType = z.TypeOf<typeof CreateEmployeeAccountBody>
 
 export const UpdateEmployeeAccountBody = z
   .object({
@@ -79,9 +78,7 @@ export const UpdateEmployeeAccountBody = z
     }
   })
 
-export type UpdateEmployeeAccountBodyType = z.TypeOf<
-  typeof UpdateEmployeeAccountBody
->
+export type UpdateEmployeeAccountBodyType = z.TypeOf<typeof UpdateEmployeeAccountBody>
 
 export const UpdateMeBody = z
   .object({
@@ -111,6 +108,14 @@ export const ChangePasswordBody = z
 
 export type ChangePasswordBodyType = z.TypeOf<typeof ChangePasswordBody>
 
+export const ChangePasswordV2Body = ChangePasswordBody
+
+export type ChangePasswordV2BodyType = z.TypeOf<typeof ChangePasswordV2Body>
+
+export const ChangePasswordV2Res = LoginRes
+
+export type ChangePasswordV2ResType = z.TypeOf<typeof ChangePasswordV2Res>
+
 export const AccountIdParam = z.object({
   id: z.coerce.number()
 })
@@ -137,9 +142,7 @@ export const GetGuestListQueryParams = z.object({
   toDate: z.coerce.date().optional()
 })
 
-export type GetGuestListQueryParamsType = z.TypeOf<
-  typeof GetGuestListQueryParams
->
+export type GetGuestListQueryParamsType = z.TypeOf<typeof GetGuestListQueryParams>
 
 export const CreateGuestBody = z
   .object({

@@ -6,9 +6,7 @@ export const DashboardIndicatorQueryParams = z.object({
   toDate: z.coerce.date()
 })
 
-export type DashboardIndicatorQueryParamsType = z.TypeOf<
-  typeof DashboardIndicatorQueryParams
->
+export type DashboardIndicatorQueryParamsType = z.TypeOf<typeof DashboardIndicatorQueryParams>
 
 export const DashboardIndicatorRes = z.object({
   data: z.object({
