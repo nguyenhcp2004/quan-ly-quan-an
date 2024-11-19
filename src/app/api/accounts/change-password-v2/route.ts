@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { ChangePasswordV2BodyType } from '@/schemaValidations/account.schema'
 import accountApiRequest from '@/apiRequests/account'
 export async function PUT(request: Request) {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const body = (await request.json()) as ChangePasswordV2BodyType
   const accessToken = cookieStore.get('accessToken')?.value
   if (!accessToken) {
